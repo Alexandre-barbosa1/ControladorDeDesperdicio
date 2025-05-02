@@ -1,33 +1,35 @@
 package com.trabalho.trabalho.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
 @Entity
-@Table(name = "tb_insumo")
-public class Insumo implements Serializable {
+@Table(name = "tb_prato")
+public class Prato implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double unidade;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "insumos")
-    private List<Prato> pratos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "pratos_insumos",
+            joinColumns = @JoinColumn(name = "prato_id"),
+            inverseJoinColumns = @JoinColumn(name = "insumo_id")
+    )
+    private List<Insumo> insumos = new ArrayList<>();
 
-    public Insumo() {
+    public Prato() {
 
     }
 
-    public Insumo(Long id, String name, Double unidade) {
+    public Prato(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.unidade = unidade;
     }
 
     public Long getId() {
@@ -46,15 +48,8 @@ public class Insumo implements Serializable {
         this.name = name;
     }
 
-    public Double getUnidade() {
-        return unidade;
-    }
 
-    public void setUnidade(Double unidade) {
-        this.unidade = unidade;
-    }
-
-    public List<Prato> getPratos() {
-        return pratos;
+    public List<Insumo> getInsumos() {
+        return insumos;
     }
 }

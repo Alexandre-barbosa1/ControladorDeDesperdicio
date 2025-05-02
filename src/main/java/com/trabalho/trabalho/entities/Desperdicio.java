@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,11 +20,11 @@ public class Desperdicio implements Serializable {
     private String descricao;
     @ManyToMany
     @JoinTable(
-            name = "desperdicio_insumo",
+            name = "desperdicio_pratos",
             joinColumns = @JoinColumn(name = "desperdicio_id"),
-            inverseJoinColumns = @JoinColumn(name = "insumo_id")
+            inverseJoinColumns = @JoinColumn(name = "pratos_id")
     )
-    private List<Insumo> insumos = new ArrayList<Insumo>();
+    private List<Prato> pratos = new ArrayList<Prato>();
 
     public Desperdicio() {
     }
@@ -59,8 +60,8 @@ public class Desperdicio implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public List<Insumo> getInsumos() {
-        return insumos;
+    public List<Prato> getPratos() {
+        return pratos;
 
     }
     public String getDescricao() {
