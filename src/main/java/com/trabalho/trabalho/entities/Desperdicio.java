@@ -1,5 +1,6 @@
 package com.trabalho.trabalho.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,22 +8,31 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Desperdicio {
+@Table(name = "tb_desperdicio")
+public class Desperdicio implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String date;
     private Double quantidade;
-    @OneToMany
+    private String descricao;
+    @ManyToMany
+    @JoinTable(
+            name = "desperdicio_insumo",
+            joinColumns = @JoinColumn(name = "desperdicio_id"),
+            inverseJoinColumns = @JoinColumn(name = "insumo_id")
+    )
     private List<Insumo> insumos = new ArrayList<Insumo>();
 
     public Desperdicio() {
     }
 
-    public Desperdicio(Long id, String date, Double quantidade) {
+    public Desperdicio(Long id, String date, Double quantidade, String descricao) {
         this.id = id;
         this.date = date;
         this.quantidade = quantidade;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -51,5 +61,10 @@ public class Desperdicio {
 
     public List<Insumo> getInsumos() {
         return insumos;
+
     }
+    public String getDescricao() {
+        return descricao;
+    }
+
 }

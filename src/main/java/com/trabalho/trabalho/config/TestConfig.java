@@ -29,11 +29,10 @@ public class TestConfig implements CommandLineRunner {
         Insumo i2 = new Insumo(null, "laranja", 5.0);
         insumoRepository.saveAll(Arrays.asList(i1, i2));
 
-        Desperdicio d1 = new Desperdicio(null, "12/02/2024", 3.0);
-        Desperdicio d2 = new Desperdicio(null, "12/02/2024", 4.0);
+        Desperdicio d1 = new Desperdicio(null, "12/02/2024", 3.0,"desperdicio na cozinha");
         d1.getInsumos().add(i1);
-        d2.getInsumos().add(i2);
-        Desperdiciorepository.saveAll(Arrays.asList(d1, d2));
+        d1.getInsumos().add(i2);
+        Desperdiciorepository.saveAll(Arrays.asList(d1));
 
     }
 }

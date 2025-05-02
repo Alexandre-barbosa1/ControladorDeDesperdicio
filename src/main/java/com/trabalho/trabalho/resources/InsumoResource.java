@@ -1,11 +1,13 @@
 package com.trabalho.trabalho.resources;
 
+import com.trabalho.trabalho.entities.Desperdicio;
 import com.trabalho.trabalho.entities.Insumo;
 import com.trabalho.trabalho.repository.InsumoRepository;
 import com.trabalho.trabalho.services.InsumoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,14 @@ public class InsumoResource {
         List<Insumo> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Insumo> findById(@PathVariable Long id) {
+        Insumo obj = service.findByiD(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+
 
 
 

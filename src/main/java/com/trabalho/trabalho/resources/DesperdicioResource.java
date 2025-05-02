@@ -6,9 +6,7 @@ import com.trabalho.trabalho.services.DesperdicioService;
 import com.trabalho.trabalho.services.InsumoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +20,12 @@ public class DesperdicioResource {
     public ResponseEntity<List<Desperdicio>> findAll() {
         List<Desperdicio> list = service.findAll();
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Desperdicio> findById(@PathVariable Long id) {
+        Desperdicio obj = service.findByiD(id);
+        return ResponseEntity.ok().body(obj);
     }
 
 
