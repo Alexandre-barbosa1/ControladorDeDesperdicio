@@ -20,6 +20,9 @@ public class Insumo implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "insumos")
     private List<Desperdicio> desperdicios = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany  @JoinColumn(name = "insumo_tb")
+    private List<InsumoUtilizado> insumosUtilizados = new ArrayList<>();
 
     public Insumo() {
 
@@ -57,5 +60,9 @@ public class Insumo implements Serializable {
 
     public List<Desperdicio> getDesperdicios() {
         return desperdicios;
+    }
+
+    public List<InsumoUtilizado> getInsumosUtilizados() {
+        return insumosUtilizados;
     }
 }

@@ -19,17 +19,18 @@ public class InsumoUtilizado implements Serializable {
     @JoinColumn(name = "prato_tb")
     @JsonIgnore
     private Prato prato;
-    private Double quantidade;
+    private Double quantidadeUsada;
 
     public InsumoUtilizado() {
 
     }
 
-    public InsumoUtilizado(Long id, Insumo insumo, Prato prato, Double quantidade) {
+    public InsumoUtilizado(Long id, Double quantidade, Insumo insumo, Prato prato) {
         this.id = id;
+        this.quantidadeUsada = quantidade;
         this.insumo = insumo;
         this.prato = prato;
-        this.quantidade = quantidade;
+
     }
 
     public Long getId() {
@@ -56,11 +57,11 @@ public class InsumoUtilizado implements Serializable {
         this.prato = prato;
     }
 
-    public Double getQuantidade() {
-        return quantidade;
+    public Double getQuantidadeUsada() {
+        return quantidadeUsada;
     }
 
-    public void setQuantidade(Double quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidadeUsada(Double quantidadeUsada) {
+        this.quantidadeUsada = quantidadeUsada;
     }
 }
