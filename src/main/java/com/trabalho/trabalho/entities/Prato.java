@@ -15,13 +15,8 @@ public class Prato implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToMany
-    @JoinTable(
-            name = "pratos_insumos",
-            joinColumns = @JoinColumn(name = "prato_id"),
-            inverseJoinColumns = @JoinColumn(name = "insumo_id")
-    )
-    private List<Insumo> insumos = new ArrayList<>();
+    @OneToMany(mappedBy = "prato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InsumoUtilizado> insumoUtilizados = new ArrayList<>();
 
     public Prato() {
 
@@ -49,7 +44,7 @@ public class Prato implements Serializable {
     }
 
 
-    public List<Insumo> getInsumos() {
-        return insumos;
+    public List<InsumoUtilizado> getInsumoUtilizados() {
+        return insumoUtilizados;
     }
 }

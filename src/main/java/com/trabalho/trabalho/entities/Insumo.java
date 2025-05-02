@@ -15,10 +15,11 @@ public class Insumo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Double unidade;
+    private Double estoque;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "insumos")
-    private List<Prato> pratos = new ArrayList<>();
+    private List<Desperdicio> desperdicios = new ArrayList<>();
 
     public Insumo() {
 
@@ -27,7 +28,7 @@ public class Insumo implements Serializable {
     public Insumo(Long id, String name, Double unidade) {
         this.id = id;
         this.name = name;
-        this.unidade = unidade;
+        this.estoque = unidade;
     }
 
     public Long getId() {
@@ -46,15 +47,15 @@ public class Insumo implements Serializable {
         this.name = name;
     }
 
-    public Double getUnidade() {
-        return unidade;
+    public Double getEstoque() {
+        return estoque;
     }
 
-    public void setUnidade(Double unidade) {
-        this.unidade = unidade;
+    public void setEstoque(Double estoque) {
+        this.estoque = estoque;
     }
 
-    public List<Prato> getPratos() {
-        return pratos;
+    public List<Desperdicio> getDesperdicios() {
+        return desperdicios;
     }
 }

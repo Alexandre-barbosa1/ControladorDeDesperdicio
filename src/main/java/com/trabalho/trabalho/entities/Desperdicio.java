@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,7 +25,17 @@ public class Desperdicio implements Serializable {
             joinColumns = @JoinColumn(name = "desperdicio_id"),
             inverseJoinColumns = @JoinColumn(name = "pratos_id")
     )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Prato> pratos = new ArrayList<Prato>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "desperdicio_insumos",
+            joinColumns = @JoinColumn(name = "desperdicio_id"),
+            inverseJoinColumns = @JoinColumn(name = "insumos_id")
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<Insumo> insumos = new ArrayList<Insumo>();
 
     public Desperdicio() {
     }
@@ -64,8 +75,12 @@ public class Desperdicio implements Serializable {
         return pratos;
 
     }
+
     public String getDescricao() {
         return descricao;
     }
 
+    public List<Insumo> getInsumos() {
+        return insumos;
+    }
 }
