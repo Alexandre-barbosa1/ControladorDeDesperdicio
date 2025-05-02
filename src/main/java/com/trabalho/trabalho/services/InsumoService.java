@@ -26,4 +26,8 @@ public class InsumoService {
         Optional<Insumo> obj = repository.findById((long) id);
         return obj.get();
     }
+
+    public Insumo insert(Insumo obj) {
+       return  obj = repository.save(obj);
+    }
 }

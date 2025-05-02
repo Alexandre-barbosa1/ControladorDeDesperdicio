@@ -1,15 +1,13 @@
 package com.trabalho.trabalho.resources;
 
 import com.trabalho.trabalho.entities.Desperdicio;
+import com.trabalho.trabalho.entities.Insumo;
 import com.trabalho.trabalho.entities.Prato;
 import com.trabalho.trabalho.services.DesperdicioService;
 import com.trabalho.trabalho.services.PratoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +28,12 @@ public class PratoResource {
         Prato obj = service.findByiD(id);
         return ResponseEntity.ok().body(obj);
     }
+    @PostMapping
+    public ResponseEntity<Prato> insert(@RequestBody Prato obj){
+        obj = service.insert(obj);
+        return ResponseEntity.ok().body(obj);
+    }
+
 
 
 }

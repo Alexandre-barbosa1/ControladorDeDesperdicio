@@ -1,6 +1,7 @@
 package com.trabalho.trabalho.services;
 
 import com.trabalho.trabalho.entities.Desperdicio;
+import com.trabalho.trabalho.entities.Insumo;
 import com.trabalho.trabalho.entities.Prato;
 import com.trabalho.trabalho.repository.DesperdicioRepository;
 import com.trabalho.trabalho.repository.PratoRepository;
@@ -24,6 +25,10 @@ public class PratoService {
     public Prato findByiD(Long id) {
         Optional<Prato> obj = repository.findById((long) id);
         return obj.get();
+    }
+
+    public Prato insert(Prato obj) {
+        return obj =  repository.save(obj);
     }
 
 

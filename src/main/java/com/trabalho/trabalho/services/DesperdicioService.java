@@ -19,7 +19,6 @@ public class DesperdicioService {
         return repository.findAll();
     }
 
-
     public Desperdicio findByiD(Long id) {
         Optional<Desperdicio> obj = repository.findById((long) id);
         return obj.get();
