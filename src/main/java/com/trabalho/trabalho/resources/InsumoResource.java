@@ -33,4 +33,9 @@ public class InsumoResource {
         obj = service.insert(obj);
         return ResponseEntity.ok().body(obj);
     }
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<Void> delete (@PathVariable Long id) {
+        service.deleteByiD(id);
+        return ResponseEntity.noContent().build();
+    }
 }
