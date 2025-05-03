@@ -12,7 +12,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.TimeZone;
 
 @Configuration
 @Profile("test")
@@ -30,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+
         Insumo i1 = new Insumo(null, "tomate", 5.0);
         Insumo i2 = new Insumo(null, "laranja", 5.0);
         Insumo i3 = new Insumo(null, "cenoura", 8.0);
@@ -60,13 +65,13 @@ public class TestConfig implements CommandLineRunner {
         pratoRepository.save(p2);
         p3.getInsumoUtilizados().addAll(Arrays.asList(is5, is6,is7));
         pratoRepository.save(p3);
-        Desperdicio d1 = new Desperdicio(null, "12/02/2024", 3.0, "desperdicio na cozinha");
-        Desperdicio d2 = new Desperdicio(null, "13/02/2024", 3.0, "insumo vencido");
-        Desperdicio d3 = new Desperdicio(null, "14/02/2024", 1.5, "sobras de prato vegetariano");
+        Desperdicio d1 = new Desperdicio(null, sdf.parse("12/02/2024"), 3.0, "desperdicio na cozinha");
+        Desperdicio d2 = new Desperdicio(null, sdf.parse("13/02/2024"), 3.0, "insumo vencido");
+        Desperdicio d3 = new Desperdicio(null, sdf.parse("14/02/2024"), 1.5, "sobras de prato vegetariano");
         desperdicioRepository.saveAll(Arrays.asList(d1, d2, d3));
 
         d1.getPratos().addAll(Arrays.asList(p1, p3));
-        d2.getInsumos().addAll(Arrays.asList(i1, i4));
+        d2.getInsumos().addAll(Arrays.asList(i1));
         d3.getPratos().addAll(Arrays.asList(p2));
         desperdicioRepository.saveAll(Arrays.asList(d1, d2, d3));
     }

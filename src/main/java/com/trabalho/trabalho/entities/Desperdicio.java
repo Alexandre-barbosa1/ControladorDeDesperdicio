@@ -16,7 +16,7 @@ public class Desperdicio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String date;
+    private Date date;
     private Double quantidade;
     private String descricao;
     @ManyToMany
@@ -40,7 +40,7 @@ public class Desperdicio implements Serializable {
     public Desperdicio() {
     }
 
-    public Desperdicio(Long id, String date, Double quantidade, String descricao) {
+    public Desperdicio(Long id, Date date, Double quantidade, String descricao) {
         this.id = id;
         this.date = date;
         this.quantidade = quantidade;
@@ -55,11 +55,11 @@ public class Desperdicio implements Serializable {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
