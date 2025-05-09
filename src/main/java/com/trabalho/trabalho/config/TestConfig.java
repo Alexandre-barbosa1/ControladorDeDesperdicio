@@ -7,6 +7,7 @@ import com.trabalho.trabalho.entities.Prato;
 import com.trabalho.trabalho.repository.DesperdicioRepository;
 import com.trabalho.trabalho.repository.InsumoRepository;
 import com.trabalho.trabalho.repository.PratoRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ import java.util.Arrays;
 import java.util.TimeZone;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class TestConfig implements CommandLineRunner {
 
     @Autowired
@@ -35,10 +36,15 @@ public class TestConfig implements CommandLineRunner {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
+        desperdicioRepository.deleteAll();
+        insumoRepository.deleteAll();
+        pratoRepository.deleteAll();
+
+
         Insumo i1 = new Insumo(null, "tomate", 5.0);
         Insumo i2 = new Insumo(null, "laranja", 5.0);
         Insumo i3 = new Insumo(null, "cenoura", 8.0);
-        Insumo i4 = new Insumo(null, "feijão", 10.0);
+        Insumo i4 = new Insumo(null, "feijao", 10.0);
         Insumo i5 = new Insumo(null, "alface", 6.0);
         Insumo i6 = new Insumo(null, "cebola", 4.0);
         Insumo i7 = new Insumo(null, "batata", 7.0);
