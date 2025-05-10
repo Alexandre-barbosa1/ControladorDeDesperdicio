@@ -1,9 +1,11 @@
 package com.trabalho.trabalho.resources;
 
+import com.trabalho.trabalho.DTO.InsumoDTO;
 import com.trabalho.trabalho.entities.Desperdicio;
 import com.trabalho.trabalho.entities.Insumo;
 import com.trabalho.trabalho.repository.InsumoRepository;
 import com.trabalho.trabalho.services.InsumoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +31,11 @@ public class InsumoResource {
     }
 
     @PostMapping
-    public ResponseEntity<Insumo> insert(@RequestBody Insumo obj) {
-        obj = service.insert(obj);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Insumo> insert(@RequestBody InsumoDTO obj) {
+        var insumo = new Insumo();
+        BeanUtils.copyProperties(obj, insumo);
+        insumo = service.insert(insumo);
+        return ResponseEntity.ok().body(insumo);
     }
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Void> delete (@PathVariable Long id) {

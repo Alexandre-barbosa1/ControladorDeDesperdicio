@@ -1,9 +1,7 @@
 package com.trabalho.trabalho.services;
 
-import com.trabalho.trabalho.entities.Desperdicio;
-import com.trabalho.trabalho.entities.Insumo;
+import com.trabalho.trabalho.DTO.PratoDTO;
 import com.trabalho.trabalho.entities.Prato;
-import com.trabalho.trabalho.repository.DesperdicioRepository;
 import com.trabalho.trabalho.repository.PratoRepository;
 import com.trabalho.trabalho.services.exception.DataBaseException;
 import com.trabalho.trabalho.services.exception.ResourceNotFoundException;
@@ -28,7 +26,7 @@ public class PratoService {
 
     public Prato findByiD(Long id) {
         Optional<Prato> obj = repository.findById((long) id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Prato insert(Prato obj) {
