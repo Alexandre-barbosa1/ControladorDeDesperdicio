@@ -1,13 +1,12 @@
 package com.trabalho.trabalho.config;
 
-import com.trabalho.trabalho.entities.Desperdicio;
-import com.trabalho.trabalho.entities.Insumo;
-import com.trabalho.trabalho.entities.InsumoUtilizado;
-import com.trabalho.trabalho.entities.Prato;
+import com.trabalho.trabalho.entities.*;
 import com.trabalho.trabalho.repository.DesperdicioRepository;
 import com.trabalho.trabalho.repository.InsumoRepository;
+import com.trabalho.trabalho.repository.ParametroSistemaRepository;
 import com.trabalho.trabalho.repository.PratoRepository;
 import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -19,16 +18,12 @@ import java.util.TimeZone;
 
 @Configuration
 @Profile("dev")
+@RequiredArgsConstructor
 public class TestConfig implements CommandLineRunner {
-
-    @Autowired
-    private DesperdicioRepository desperdicioRepository;
-
-    @Autowired
-    private InsumoRepository insumoRepository;
-
-    @Autowired
-    private PratoRepository pratoRepository;
+    private final DesperdicioRepository desperdicioRepository;
+    private final InsumoRepository insumoRepository;
+    private final PratoRepository pratoRepository;
+    private final ParametroSistemaRepository  parametroSistemaRepository;
 
 
     @Override
@@ -36,9 +31,14 @@ public class TestConfig implements CommandLineRunner {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        desperdicioRepository.deleteAll();
-        insumoRepository.deleteAll();
-        pratoRepository.deleteAll();
+        if (parametroSistemaRepository.existsByTitulo("Inserção de dados inicias"))
+            return;
+
+        ParametroSistema parametroSistema = new ParametroSistema();
+        parametroSistema.setTitulo("Inserção de dados inicias");
+        parametroSistema.setEhIniciado(true);
+
+        parametroSistemaRepository.save(parametroSistema);
 
 
         Insumo i1 = new Insumo(null, "tomate", 5.0);
